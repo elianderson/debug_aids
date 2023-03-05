@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-def we_are_here(*context, delim: '*', reps: 3)
-  c = caller_locations(1, 1).first
-  $stdout << PP.pp([[delim * 99] * reps, [c.path, c.lineno], *context], +'', 120)
+require 'pp'
+
+def we_are_here(*context, delim: '*', reps: 2, width: 120)
+  block_delim = [delim * width] * reps
+  location = caller_locations(1, 1).first
+  msg = [block_delim, "#{location.path}:#{location.lineno}", block_delim].flatten
+  msg.push(*context, *block_delim) unless context.empty?
+
+  PP.pp(msg, +'', width)
 end
