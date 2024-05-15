@@ -2,7 +2,7 @@
 
 require 'pp'
 
-def we_are_here(*context, delim: '*', reps: 2, width: 120)
+def we_are_here(*context, delim: '-', reps: 1, width: 120)
   block_delim = [delim * width] * reps
   location = caller_locations(1, 1).first
   msg = [block_delim, "#{location.path}:#{location.lineno}", block_delim].flatten
